@@ -61,11 +61,16 @@ def preprocessing(df):
 def writing(moments, col):
     """Prints the statistical moments and provides interpretation."""
     print(f'For the attribute {col}:')
-    print(f'Mean = {moments[0]:.2f}, '\n          f'Standard Deviation = {moments[1]:.2f}, '\n          f'Skewness = {moments[2]:.2f}, and '\n          f'Excess Kurtosis = {moments[3]:.2f}.')
+    print(f'Mean = {moments[0]:.2f}, ')
+    print(f'Standard Deviation = {moments[1]:.2f}, ')
+    print(f'Skewness = {moments[2]:.2f}, and ')
+    print(f'Excess Kurtosis = {moments[3]:.2f}.')
+    
     skewness_desc = "not skewed" if -0.5 < moments[2] < 0.5 else (
         "right-skewed" if moments[2] > 0.5 else "left-skewed")
     kurtosis_desc = "mesokurtic" if -0.5 < moments[3] < 0.5 else (
         "leptokurtic" if moments[3] > 0.5 else "platykurtic")
+    
     print(f'The data is {skewness_desc} and {kurtosis_desc}.')
 
 
