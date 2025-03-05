@@ -34,7 +34,6 @@ def plot_categorical_plot(df):
 def plot_statistical_plot(df):
     """Generates a heatmap to show correlations between numerical variables."""
     plt.figure(figsize=(8, 5))
-    # Select only numerical columns
     numeric_df = df.select_dtypes(include=['number'])
     sns.heatmap(
         numeric_df.corr(), annot=True, cmap='coolwarm', fmt='.2f'
@@ -68,7 +67,8 @@ def writing(moments, col):
     print(f'For the attribute {col}:')
     print(
         f'Mean = {moments[0]:.2f}, Std Dev = {moments[1]:.2f}, '
-        f'Skewness = {moments[2]:.2f}, Excess Kurtosis = {moments[3]:.2f}.'
+        f'Skewness = {moments[2]:.2f},\n'
+        f'Excess Kurtosis = {moments[3]:.2f}.'
     )
     skewness_desc = (
         "right-skewed" if moments[2] > 0 else "left-skewed"
