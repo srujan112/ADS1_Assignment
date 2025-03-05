@@ -3,6 +3,7 @@ import pandas as pd
 import seaborn as sns
 import scipy.stats as ss
 
+
 def plot_relational_plot(df):
     """Generates a relational plot (line plot showing trends over years)."""
     plt.figure(figsize=(10, 5))
@@ -15,6 +16,7 @@ def plot_relational_plot(df):
     plt.savefig('relational_plot.png')
     plt.show()
 
+
 def plot_categorical_plot(df):
     """Generates a categorical plot (bar chart for suicide numbers by gender)."""
     plt.figure(figsize=(8, 5))
@@ -26,6 +28,7 @@ def plot_categorical_plot(df):
     plt.savefig('categorical_plot.png')
     plt.show()
 
+
 def plot_statistical_plot(df):
     """Generates a statistical plot (heatmap showing correlation)."""
     plt.figure(figsize=(8, 6))
@@ -35,6 +38,7 @@ def plot_statistical_plot(df):
     plt.savefig('statistical_plot.png')
     plt.show()
 
+
 def statistical_analysis(df, col: str):
     """Calculates mean, standard deviation, skewness, and excess kurtosis."""
     mean = df[col].mean()
@@ -42,6 +46,7 @@ def statistical_analysis(df, col: str):
     skew = ss.skew(df[col])
     excess_kurtosis = ss.kurtosis(df[col])
     return mean, stddev, skew, excess_kurtosis
+
 
 def preprocessing(df):
     """Performs basic preprocessing including checking data structure."""
@@ -52,18 +57,17 @@ def preprocessing(df):
     df.dropna(inplace=True)
     return df
 
+
 def writing(moments, col):
     """Prints the statistical moments and provides interpretation."""
     print(f'For the attribute {col}:')
-    print(f'Mean = {moments[0]:.2f}, '
-          f'Standard Deviation = {moments[1]:.2f}, '
-          f'Skewness = {moments[2]:.2f}, and '
-          f'Excess Kurtosis = {moments[3]:.2f}.')
+    print(f'Mean = {moments[0]:.2f}, '\n          f'Standard Deviation = {moments[1]:.2f}, '\n          f'Skewness = {moments[2]:.2f}, and '\n          f'Excess Kurtosis = {moments[3]:.2f}.')
     skewness_desc = "not skewed" if -0.5 < moments[2] < 0.5 else (
         "right-skewed" if moments[2] > 0.5 else "left-skewed")
     kurtosis_desc = "mesokurtic" if -0.5 < moments[3] < 0.5 else (
         "leptokurtic" if moments[3] > 0.5 else "platykurtic")
     print(f'The data is {skewness_desc} and {kurtosis_desc}.')
+
 
 def main():
     """Main function to execute data analysis tasks."""
@@ -75,6 +79,7 @@ def main():
     plot_statistical_plot(df)
     moments = statistical_analysis(df, col)
     writing(moments, col)
+
 
 if __name__ == '__main__':
     main()
