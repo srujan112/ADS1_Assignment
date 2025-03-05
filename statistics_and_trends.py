@@ -3,45 +3,37 @@ import pandas as pd
 import seaborn as sns
 import scipy.stats as ss
 
-
 def plot_relational_plot(df):
-    """Generates a scatter plot showing the relationship between carat and price."""
-    plt.figure(figsize=(8, 5))
-    sns.scatterplot(
-        x=df['carat'], y=df['price'], alpha=0.5
-    )
-    plt.xlabel('Carat')
-    plt.ylabel('Price')
-    plt.title('Relationship Between Carat and Price')
+    """Generates a relational plot (line plot showing trends over years)."""
+    plt.figure(figsize=(10, 5))
+    sns.lineplot(x='year', y='suicides_no', hue='country', data=df)
+    plt.title('Suicide Trends Over the Years')
+    plt.xlabel('Year')
+    plt.ylabel('Number of Suicides')
+    plt.legend(title='Country')
+    plt.grid()
     plt.savefig('relational_plot.png')
     plt.show()
 
-
 def plot_categorical_plot(df):
-    """Generates a bar plot showing the average price by cut quality."""
+    """Generates a categorical plot (bar chart for suicide numbers by gender)."""
     plt.figure(figsize=(8, 5))
-    sns.barplot(
-        x='cut', y='price', data=df,
-        estimator=lambda x: sum(x) / len(x)
-    )
-    plt.xlabel('Cut Quality')
-    plt.ylabel('Average Price')
-    plt.title('Average Price by Cut Quality')
+    sns.barplot(x='sex', y='suicides_no', data=df, estimator=sum)
+    plt.title('Total Suicides by Gender')
+    plt.xlabel('Gender')
+    plt.ylabel('Total Suicides')
+    plt.grid()
     plt.savefig('categorical_plot.png')
     plt.show()
 
-
 def plot_statistical_plot(df):
-    """Generates a heatmap to show correlations between numerical variables."""
-    plt.figure(figsize=(8, 5))
-    numeric_df = df.select_dtypes(include=['number'])
-    sns.heatmap(
-        numeric_df.corr(), annot=True, cmap='coolwarm', fmt='.2f'
-    )
+    """Generates a statistical plot (heatmap showing correlation)."""
+    plt.figure(figsize=(8, 6))
+    correlation_matrix = df[['suicides_no', 'population', 'year']].corr()
+    sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt='.2f')
     plt.title('Correlation Heatmap')
     plt.savefig('statistical_plot.png')
     plt.show()
-
 
 def statistical_analysis(df, col: str):
     """Calculates mean, standard deviation, skewness, and excess kurtosis."""
@@ -50,7 +42,6 @@ def statistical_analysis(df, col: str):
     skew = ss.skew(df[col])
     excess_kurtosis = ss.kurtosis(df[col])
     return mean, stddev, skew, excess_kurtosis
-
 
 def preprocessing(df):
     """Performs basic preprocessing including checking data structure."""
@@ -61,37 +52,29 @@ def preprocessing(df):
     df.dropna(inplace=True)
     return df
 
-
 def writing(moments, col):
     """Prints the statistical moments and provides interpretation."""
     print(f'For the attribute {col}:')
-    print(
-        f'Mean = {moments[0]:.2f}, Std Dev = {moments[1]:.2f}, '
-        f'Skewness = {moments[2]:.2f},\n'
-        f'Excess Kurtosis = {moments[3]:.2f}.'
-    )
-    skewness_desc = (
-        "right-skewed" if moments[2] > 0 else "left-skewed"
-        if moments[2] < 0 else "symmetrical"
-    )
-    kurtosis_desc = (
-        "leptokurtic" if moments[3] > 0 else "platykurtic"
-        if moments[3] < 0 else "mesokurtic"
-    )
+    print(f'Mean = {moments[0]:.2f}, '
+          f'Standard Deviation = {moments[1]:.2f}, '
+          f'Skewness = {moments[2]:.2f}, and '
+          f'Excess Kurtosis = {moments[3]:.2f}.')
+    skewness_desc = "not skewed" if -0.5 < moments[2] < 0.5 else (
+        "right-skewed" if moments[2] > 0.5 else "left-skewed")
+    kurtosis_desc = "mesokurtic" if -0.5 < moments[3] < 0.5 else (
+        "leptokurtic" if moments[3] > 0.5 else "platykurtic")
     print(f'The data is {skewness_desc} and {kurtosis_desc}.')
-
 
 def main():
     """Main function to execute data analysis tasks."""
-    df = pd.read_csv('Diamonds Prices2022.csv')
+    df = pd.read_csv('data.csv')
     df = preprocessing(df)
-    col = 'price'
+    col = 'suicides_no'
     plot_relational_plot(df)
-    plot_statistical_plot(df)
     plot_categorical_plot(df)
+    plot_statistical_plot(df)
     moments = statistical_analysis(df, col)
     writing(moments, col)
-
 
 if __name__ == '__main__':
     main()
