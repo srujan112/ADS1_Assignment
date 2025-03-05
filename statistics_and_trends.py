@@ -7,7 +7,9 @@ import scipy.stats as ss
 def plot_relational_plot(df):
     """Generates a scatter plot showing the relationship between carat and price."""
     plt.figure(figsize=(8, 5))
-    sns.scatterplot(x=df['carat'], y=df['price'], alpha=0.5)
+    sns.scatterplot(
+        x=df['carat'], y=df['price'], alpha=0.5
+    )
     plt.xlabel('Carat')
     plt.ylabel('Price')
     plt.title('Relationship Between Carat and Price')
@@ -68,7 +70,8 @@ def preprocessing(df):
 def writing(moments, col):
     """Prints the statistical moments and provides interpretation."""
     print(f'For the attribute {col}:')
-    print(f'Mean = {moments[0]:.2f}, Standard Deviation = {moments[1]:.2f}, Skewness = {moments[2]:.2f}, and Excess Kurtosis = {moments[3]:.2f}.')
+    print(f'Mean = {moments[0]:.2f}, Standard Deviation = {moments[1]:.2f}, '
+          f'Skewness = {moments[2]:.2f}, and Excess Kurtosis = {moments[3]:.2f}.')
     skewness_desc = "right-skewed" if moments[2] > 0 else "left-skewed" if moments[2] < 0 else "symmetrical"
     kurtosis_desc = "leptokurtic" if moments[3] > 0 else "platykurtic" if moments[3] < 0 else "mesokurtic"
     print(f'The data is {skewness_desc} and {kurtosis_desc}.')
@@ -90,4 +93,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
