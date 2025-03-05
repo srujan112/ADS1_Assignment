@@ -4,7 +4,7 @@ import seaborn as sns
 import scipy.stats as ss
 
 
-def plot_relational_plot(df) 
+def plot_relational_plot(df):
     """Generates a scatter plot showing the relationship between carat and price."""
     plt.figure(figsize=(8, 5))
     sns.scatterplot(
