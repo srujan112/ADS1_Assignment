@@ -12,9 +12,7 @@ def plot_relational_plot(df):
     plt.title('Relationship Between Carat and Price')
     plt.savefig('relational_plot.png')
     plt.show()
-
-
-
+    
 def plot_categorical_plot(df):
     """Generates a bar plot showing the average price by cut quality."""
     plt.figure(figsize=(8, 5))
@@ -24,9 +22,7 @@ def plot_categorical_plot(df):
     plt.title('Average Price by Cut Quality')
     plt.savefig('categorical_plot.png')
     plt.show()
-
-
-
+    
 def plot_statistical_plot(df):
     """Generates a heatmap to show correlations between numerical variables."""
     plt.figure(figsize=(8, 5))
@@ -38,9 +34,7 @@ def plot_statistical_plot(df):
     plt.title('Correlation Heatmap')
     plt.savefig('statistical_plot.png')
     plt.show()
-
-
-
+    
 def statistical_analysis(df, col: str):
     """Calculates mean, standard deviation, skewness, and excess kurtosis for a given column."""
     mean = df[col].mean()
@@ -48,22 +42,18 @@ def statistical_analysis(df, col: str):
     skew = ss.skew(df[col])
     excess_kurtosis = ss.kurtosis(df[col])
     return mean, stddev, skew, excess_kurtosis
-
-
-
+    
 def preprocessing(df):
     """Performs basic preprocessing including checking data structure, null values, and correlations."""
     print(f"Summary Statistics:\n{df.describe()}\n\n")  # Summary statistics
     
-    # Select only numerical columns for correlation
+    #Select only numerical columns for correlation
     numeric_df = df.select_dtypes(include=['number'])
     print(f"Correlation Matrix:\n{numeric_df.corr()}\n\n")
     print(f"First Five Rows:\n{df.head()}\n\n")  # Display first few rows
     df.dropna(inplace=True)  # Remove missing values if any
     return df
-
-
-
+    
 def writing(moments, col):
     """Prints the statistical moments and provides interpretation."""
     print(f'For the attribute {col}:')
@@ -71,9 +61,7 @@ def writing(moments, col):
     skewness_desc = "right-skewed" if moments[2] > 0 else "left-skewed" if moments[2] < 0 else "symmetrical"
     kurtosis_desc = "leptokurtic" if moments[3] > 0 else "platykurtic" if moments[3] < 0 else "mesokurtic"
     print(f'The data is {skewness_desc} and {kurtosis_desc}.')
-
-
-
+    
 def main():
     """Main function to execute data analysis tasks."""
     df = pd.read_csv('Diamonds Prices2022.csv')
@@ -85,7 +73,6 @@ def main():
     plot_categorical_plot(df)
     moments = statistical_analysis(df, col)
     writing(moments, col)
-
-
+    
 if __name__ == '__main__':
     main()
