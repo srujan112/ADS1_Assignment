@@ -5,7 +5,7 @@ import scipy.stats as ss
 
 
 def plot_relational_plot(df):
-    """Generates a scatter plot showing the relationship between carat and price."""
+ """Generates a scatter plot showing the relationship between carat and price."""
     plt.figure(figsize=(8, 5))
     sns.scatterplot(
         x=df['carat'], y=df['price'], alpha=0.5
