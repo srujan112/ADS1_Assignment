@@ -53,17 +53,11 @@ def statistical_analysis(df, col: str):
 
 
 def preprocessing(df):
-    """Performs basic preprocessing including checking data structure and null values."""
-    print(
-        f"Summary Stats:\n{df.describe()}\n"
-    )
+    """Performs basic preprocessing including checking data structure."""
+    print(f"Summary Stats:\n{df.describe()}\n")
     numeric_df = df.select_dtypes(include=['number'])
-    print(
-        f"Correlation Matrix:\n{numeric_df.corr()}\n"
-    )
-    print(
-        f"First Rows:\n{df.head()}\n"
-    )
+    print(f"Correlation Matrix:\n{numeric_df.corr()}\n")
+    print(f"First Rows:\n{df.head()}\n")
     df.dropna(inplace=True)
     return df
 
