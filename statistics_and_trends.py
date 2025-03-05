@@ -86,7 +86,6 @@ def writing(moments, col):
     )
     print(f'The data is {skewness_desc} and {kurtosis_desc}.')
 
-
 def main():
     """Main function to execute data analysis tasks."""
     df = pd.read_csv('Diamonds Prices2022.csv')
