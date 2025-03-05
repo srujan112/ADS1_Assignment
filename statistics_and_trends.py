@@ -5,6 +5,7 @@ import scipy.stats as ss
 
 
 def plot_relational_plot(df):
+    
     """Generates a scatter plot showing the relationship between carat and price."""
     plt.figure(figsize=(8, 5))
     sns.scatterplot(
@@ -85,6 +86,7 @@ def writing(moments, col):
         if moments[3] < 0 else "mesokurtic"
     )
     print(f'The data is {skewness_desc} and {kurtosis_desc}.')
+
 
 def main():
     """Main function to execute data analysis tasks."""
