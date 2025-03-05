@@ -54,13 +54,12 @@ def statistical_analysis(df, col: str):
 
 
 def preprocessing(df):
-    """Performs basic preprocessing including checking data structure, null values, and correlations."""
-    print(f"Summary Statistics:\n{df.describe()}\n")  # Summary statistics
-    # Select only numerical columns for correlation
+    """Performs basic preprocessing including checking data structure and null values."""
+    print(f"Summary Stats:\n{df.describe()}\n")
     numeric_df = df.select_dtypes(include=['number'])
     print(f"Correlation Matrix:\n{numeric_df.corr()}\n")
-    print(f"First Five Rows:\n{df.head()}\n")  # Display first few rows
-    df.dropna(inplace=True)  # Remove missing values if any
+    print(f"First Rows:\n{df.head()}\n")
+    df.dropna(inplace=True)
     return df
 
 
@@ -68,8 +67,8 @@ def writing(moments, col):
     """Prints the statistical moments and provides interpretation."""
     print(f'For the attribute {col}:')
     print(
-        f'Mean = {moments[0]:.2f}, Standard Deviation = {moments[1]:.2f}, '
-        f'Skewness = {moments[2]:.2f}, and Excess Kurtosis = {moments[3]:.2f}.'
+        f'Mean = {moments[0]:.2f}, Std Dev = {moments[1]:.2f}, '
+        f'Skewness = {moments[2]:.2f}, Excess Kurtosis = {moments[3]:.2f}.'
     )
     skewness_desc = (
         "right-skewed" if moments[2] > 0 else "left-skewed"
@@ -86,7 +85,7 @@ def main():
     """Main function to execute data analysis tasks."""
     df = pd.read_csv('Diamonds Prices2022.csv')
     df = preprocessing(df)
-    col = 'price'  # Chosen numerical column for analysis
+    col = 'price'
     plot_relational_plot(df)
     plot_statistical_plot(df)
     plot_categorical_plot(df)
