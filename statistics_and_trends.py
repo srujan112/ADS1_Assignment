@@ -21,7 +21,8 @@ def plot_categorical_plot(df):
     """Generates a bar plot showing the average price by cut quality."""
     plt.figure(figsize=(8, 5))
     sns.barplot(
-        x='cut', y='price', data=df, estimator=lambda x: sum(x) / len(x)
+        x='cut', y='price', data=df,
+        estimator=lambda x: sum(x) / len(x)
     )
     plt.xlabel('Cut Quality')
     plt.ylabel('Average Price')
@@ -44,7 +45,7 @@ def plot_statistical_plot(df):
 
 
 def statistical_analysis(df, col: str):
-    """Calculates mean, standard deviation, skewness, and excess kurtosis for a given column."""
+    """Calculates mean, standard deviation, skewness, and excess kurtosis."""
     mean = df[col].mean()
     stddev = df[col].std()
     skew = ss.skew(df[col])
@@ -71,10 +72,12 @@ def writing(moments, col):
         f'Skewness = {moments[2]:.2f}, and Excess Kurtosis = {moments[3]:.2f}.'
     )
     skewness_desc = (
-        "right-skewed" if moments[2] > 0 else "left-skewed" if moments[2] < 0 else "symmetrical"
+        "right-skewed" if moments[2] > 0 else "left-skewed"
+        if moments[2] < 0 else "symmetrical"
     )
     kurtosis_desc = (
-        "leptokurtic" if moments[3] > 0 else "platykurtic" if moments[3] < 0 else "mesokurtic"
+        "leptokurtic" if moments[3] > 0 else "platykurtic"
+        if moments[3] < 0 else "mesokurtic"
     )
     print(f'The data is {skewness_desc} and {kurtosis_desc}.')
 
