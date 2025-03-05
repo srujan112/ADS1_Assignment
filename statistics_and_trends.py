@@ -3,11 +3,12 @@ import pandas as pd
 import seaborn as sns
 import scipy.stats as ss
 
-
 def plot_relational_plot(df):
     """Generates a relational plot (line plot showing trends over years)."""
     plt.figure(figsize=(10, 5))
-    sns.lineplot(x='year', y='suicides_no', hue='country', data=df)
+    sns.lineplot(
+        x='year', y='suicides_no', hue='country', data=df
+    )
     plt.title('Suicide Trends Over the Years')
     plt.xlabel('Year')
     plt.ylabel('Number of Suicides')
@@ -16,11 +17,12 @@ def plot_relational_plot(df):
     plt.savefig('relational_plot.png')
     plt.show()
 
-
 def plot_categorical_plot(df):
     """Generates a categorical plot (bar chart for suicide numbers by gender)."""
     plt.figure(figsize=(8, 5))
-    sns.barplot(x='sex', y='suicides_no', data=df, estimator=sum)
+    sns.barplot(
+        x='sex', y='suicides_no', data=df, estimator=sum
+    )
     plt.title('Total Suicides by Gender')
     plt.xlabel('Gender')
     plt.ylabel('Total Suicides')
@@ -28,16 +30,16 @@ def plot_categorical_plot(df):
     plt.savefig('categorical_plot.png')
     plt.show()
 
-
 def plot_statistical_plot(df):
     """Generates a statistical plot (heatmap showing correlation)."""
     plt.figure(figsize=(8, 6))
     correlation_matrix = df[['suicides_no', 'population', 'year']].corr()
-    sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt='.2f')
+    sns.heatmap(
+        correlation_matrix, annot=True, cmap='coolwarm', fmt='.2f'
+    )
     plt.title('Correlation Heatmap')
     plt.savefig('statistical_plot.png')
     plt.show()
-
 
 def statistical_analysis(df, col: str):
     """Calculates mean, standard deviation, skewness, and excess kurtosis."""
@@ -46,7 +48,6 @@ def statistical_analysis(df, col: str):
     skew = ss.skew(df[col])
     excess_kurtosis = ss.kurtosis(df[col])
     return mean, stddev, skew, excess_kurtosis
-
 
 def preprocessing(df):
     """Performs basic preprocessing including checking data structure."""
@@ -57,7 +58,6 @@ def preprocessing(df):
     df.dropna(inplace=True)
     return df
 
-
 def writing(moments, col):
     """Prints the statistical moments and provides interpretation."""
     print(f'For the attribute {col}:')
@@ -67,12 +67,13 @@ def writing(moments, col):
     print(f'Excess Kurtosis = {moments[3]:.2f}.')
     
     skewness_desc = "not skewed" if -0.5 < moments[2] < 0.5 else (
-        "right-skewed" if moments[2] > 0.5 else "left-skewed")
+        "right-skewed" if moments[2] > 0.5 else "left-skewed"
+    )
     kurtosis_desc = "mesokurtic" if -0.5 < moments[3] < 0.5 else (
-        "leptokurtic" if moments[3] > 0.5 else "platykurtic")
+        "leptokurtic" if moments[3] > 0.5 else "platykurtic"
+    )
     
     print(f'The data is {skewness_desc} and {kurtosis_desc}.')
-
 
 def main():
     """Main function to execute data analysis tasks."""
@@ -84,7 +85,6 @@ def main():
     plot_statistical_plot(df)
     moments = statistical_analysis(df, col)
     writing(moments, col)
-
 
 if __name__ == '__main__':
     main()
