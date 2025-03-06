@@ -18,7 +18,7 @@ def plot_relational_plot(df):
 
 
 def plot_categorical_plot(df):
-    """Generates a categorical plot 
+    """Generates a categorical plot
     (bar chart for suicide numbers by gender)."""
     plt.figure(figsize=(8, 5))
     sns.barplot(x='sex', y='suicides_no', data=df, estimator=sum)
