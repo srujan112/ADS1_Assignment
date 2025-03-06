@@ -69,7 +69,6 @@ def writing(moments, col):
         "right-skewed" if moments[2] > 0.5 else "left-skewed")
     kurtosis_desc = "mesokurtic" if -0.5 < moments[3] < 0.5 else (
         "leptokurtic" if moments[3] > 0.5 else "platykurtic")
-    
     print(f'The data is {skewness_desc} and {kurtosis_desc}.')
 
 
